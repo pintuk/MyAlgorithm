@@ -7,6 +7,7 @@ These files are not related to each other. However, some of the algorithm functi
 Thus these files needs to be compiled individually.
 To compile, simpley use:
 > gcc filename.c
+
 To execute, simply do:
 > ./a.out
 
