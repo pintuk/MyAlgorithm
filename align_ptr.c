@@ -1,22 +1,24 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#define ALIGN(x,a)	(((x) + ((a) - 1)) & ~((a) - 1))
 #define PAGE_SIZE	4096
+#define PAGE_ALIGN(addr)	(((addr) + (PAGE_SIZE - 1)) & ~(PAGE_SIZE - 1))
 
-char *align_pointer(char *p)
-{
-	p = (char *)ALIGN((unsigned long)p, PAGE_SIZE);
-	return p;
-}
 
 int main()
 {
-	unsigned char c = 0x30;
-	char *p = (char *)&c;
+	unsigned long c = 0x30;
+	unsigned long *addr;
 
-	printf("BEFORE: p = %p, *p = 0x%x\n", p, *p);
-	p = align_pointer(p);
-	printf("BEFORE: p = %p, *p = 0x%x\n", p, *p);
+	addr = (unsigned long *)malloc(sizeof(unsigned long)*100);
+	memset(addr, 0, sizeof(unsigned long)*1024);
+	addr[0] = c;
+
+	printf("BEFORE: addr = %p, *addr = 0x%lx\n", addr, *addr);
+	addr = (unsigned long *)PAGE_ALIGN((unsigned long)addr);
+	addr[0] = c;
+	printf("AFTER PAGE_ALIGN: addr = %p , *addr = 0x%lx\n", addr, *addr);
 
 	return 0;
 }
