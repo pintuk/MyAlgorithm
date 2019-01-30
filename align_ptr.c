@@ -10,9 +10,11 @@ int main()
 {
 	unsigned long c = 0x30;
 	unsigned long *addr;
+	unsigned long size;
 
-	addr = (unsigned long *)malloc(sizeof(unsigned long)*100);
-	memset(addr, 0, sizeof(unsigned long)*1024);
+	size = sizeof(unsigned long)*1024;
+	addr = (unsigned long *)malloc(size);
+	memset(addr, 0, size);
 	addr[0] = c;
 
 	printf("BEFORE: addr = %p, *addr = 0x%lx\n", addr, *addr);
